@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/*
+  Remove Nth Node from End of Linked List
+  Approach: Two Pointers
+  Time Complexity: O(n)
+  Space Complexity: O(1)
+*/
+
+// Definition of node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to remove Nth node from end
+struct Node* removeNthFromEnd(struct Node* head, int n) {
+    struct Node dummy;
+    dummy.next = head;
+
+    struct Node* fast = &dummy;
+    struct Node* slow = &dummy;
+
+    // Move fast pointer n steps ahead
+    for (int i = 0; i < n; i++) {
+        if (fast->next != NULL)
+            fast = fast->next;
+    }
+
+    // Move both pointers
+    while (fast->next != NULL) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    // Remove node
+    struct Node* temp = slow->next;
+    slow->next = slow->next->next;
+    free(temp);
+
+    return dummy.next;
+}
+
+// Insert node at end
+struct Node* insertEnd(struct Node* head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL)
+        return newNode;
+
+    struct Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    return head;
+}
+
+// Print list
+void printList(struct Node* head) {
+    while (head != NULL) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    head = insertEnd(head, 1);
+    head = insertEnd(head, 2);
+    head = insertEnd(head, 3);
+    head = insertEnd(head, 4);
+    head = insertEnd(head, 5);
+
+    printf("Original List: ");
+    printList(head);
+
+    int n = 2;
+    head = removeNthFromEnd(head, n);
+
+    printf("After Removing %dth Node from End: ", n);
+    printList(head);
+
+    return 0;
+}
