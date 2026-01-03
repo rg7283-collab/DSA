@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/*
+  Postorder Traversal of a Binary Tree
+  Order: Left -> Right -> Root
+  Time Complexity: O(n)
+  Space Complexity: O(h)
+*/
+
+// Definition of tree node
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+// Create new node
+struct Node* newNode(int value) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = value;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+// Postorder traversal function
+void postorderTraversal(struct Node* root) {
+    if (root == NULL)
+        return;
+
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    printf("%d ", root->data);
+}
+
+int main() {
+    /*
+            1
+           / \
+          2   3
+         / \
+        4   5
+    */
+
+    struct Node* root = newNode(1);
+    root->left = newNode(2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+
+    printf("Postorder Traversal: ");
+    postorderTraversal(root);
+
+    return 0;
+}
