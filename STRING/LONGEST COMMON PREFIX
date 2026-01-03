@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+
+/*
+  Longest Common Prefix
+  Approach: Vertical Scanning
+  Time Complexity: O(n * m)
+  Space Complexity: O(1)
+*/
+
+void longestCommonPrefix(char strs[][20], int n, char result[]) {
+    int index = 0;
+
+    while (1) {
+        char current = strs[0][index];
+
+        // End if first string ends
+        if (current == '\0')
+            break;
+
+        // Compare with other strings
+        for (int i = 1; i < n; i++) {
+            if (strs[i][index] != current) {
+                result[index] = '\0';
+                return;
+            }
+        }
+
+        result[index++] = current;
+    }
+
+    result[index] = '\0';
+}
+
+int main() {
+    char strs[][20] = {"flower", "flow", "flight"};
+    int n = sizeof(strs) / sizeof(strs[0]);
+    char result[20];
+
+    longestCommonPrefix(strs, n, result);
+
+    printf("Longest Common Prefix: \"%s\"\n", result);
+
+    return 0;
+}
