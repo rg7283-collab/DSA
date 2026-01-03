@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+/*
+  Generate All Subsets (Subsequences) of a String
+  Approach: Recursion (Include / Exclude)
+  Time Complexity: O(2^n)
+  Space Complexity: O(n)
+*/
+
+void generateSubsets(char str[], int index, char curr[], int currIndex) {
+    // Base case: end of string
+    if (index == strlen(str)) {
+        curr[currIndex] = '\0';
+        printf("%s\n", curr);
+        return;
+    }
+
+    // Exclude current character
+    generateSubsets(str, index + 1, curr, currIndex);
+
+    // Include current character
+    curr[currIndex] = str[index];
+    generateSubsets(str, index + 1, curr, currIndex + 1);
+}
+
+int main() {
+    char str[] = "abc";
+    char curr[100];
+
+    printf("All subsets:\n");
+    generateSubsets(str, 0, curr, 0);
+
+    return 0;
+}
