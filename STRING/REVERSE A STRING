@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+
+/*
+  Reverse a String
+  Approach: Two Pointers (In-Place)
+  Time Complexity: O(n)
+  Space Complexity: O(1)
+*/
+
+void reverseString(char str[]) {
+    int left = 0;
+    int right = strlen(str) - 1;
+
+    while (left < right) {
+        char temp = str[left];
+        str[left] = str[right];
+        str[right] = temp;
+
+        left++;
+        right--;
+    }
+}
+
+int main() {
+    char str[] = "hello";
+
+    reverseString(str);
+
+    printf("Reversed String: %s\n", str);
+
+    return 0;
+}
