@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+
+/*
+  Valid Anagram
+  Approach: Frequency Count
+  Time Complexity: O(n)
+  Space Complexity: O(1)
+*/
+
+int isAnagram(char s[], char t[]) {
+    int count[256] = {0};
+
+    // If lengths differ, cannot be anagram
+    if (strlen(s) != strlen(t))
+        return 0;
+
+    // Count characters
+    for (int i = 0; s[i] != '\0'; i++) {
+        count[(unsigned char)s[i]]++;
+        count[(unsigned char)t[i]]--;
+    }
+
+    // Check frequency balance
+    for (int i = 0; i < 256; i++) {
+        if (count[i] != 0)
+            return 0;
+    }
+    return 1;
+}
+
+int main() {
+    char s[] = "listen";
+    char t[] = "silent";
+
+    if (isAnagram(s, t))
+        printf("Valid Anagram\n");
+    else
+        printf("Not an Anagram\n");
+
+    return 0;
+}
