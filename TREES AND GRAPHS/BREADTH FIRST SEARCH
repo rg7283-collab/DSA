@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+#define MAX 10
+
+/*
+  Breadth First Search (BFS)
+  Graph Representation: Adjacency Matrix
+  Time Complexity: O(V + E)
+  Space Complexity: O(V)
+*/
+
+int graph[MAX][MAX];
+int visited[MAX];
+int queue[MAX];
+int front = -1, rear = -1;
+
+// Enqueue operation
+void enqueue(int value) {
+    if (rear == MAX - 1)
+        return;
+    if (front == -1)
+        front = 0;
+    queue[++rear] = value;
+}
+
+// Dequeue operation
+int dequeue() {
+    return queue[front++];
+}
+
+// BFS traversal function
+void bfs(int start, int vertices) {
+    enqueue(start);
+    visited[start] = 1;
+
+    while (front <= rear) {
+        int current = dequeue();
+        printf("%d ", current);
+
+        for (int i = 0; i < vertices; i++) {
+            if (graph[current][i] == 1 && !visited[i]) {
+                enqueue(i);
+                visited[i] = 1;
+            }
+        }
+    }
+}
+
+int main() {
+    int vertices = 5;
+
+    // Initialize graph (Adjacency Matrix)
+    int temp[5][5] = {
+        {0, 1, 1, 0, 0},
+        {1, 0, 0, 1, 0},
+        {1, 0, 0, 1, 1},
+        {0, 1, 1, 0, 1},
+        {0, 0, 1, 1, 0}
+    };
+
+    for (int i = 0; i < vertices; i++) {
+        visited[i] = 0;
+        for (int j = 0; j < vertices; j++)
+            graph[i][j] = temp[i][j];
+    }
+
+    printf("BFS Traversal starting from vertex 0: ");
+    bfs(0, vertices);
+
+    return 0;
+}
