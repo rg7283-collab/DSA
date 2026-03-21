@@ -8,7 +8,7 @@ void findMinMax(int arr[], int n) {
         if (arr[i] > max)
             max = arr[i];
     }
-    printf("Minimum element: %d\n", min);
+    printf("Minimum element: %d\n", min); 
     printf("Maximum element: %d\n", max);
 }
 int main() {
